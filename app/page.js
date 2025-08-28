@@ -1,5 +1,6 @@
 'use client'
 
+import AnimatedLoader from "@/components/custom/animatedLogo";
 import FeaturedProducts from "@/components/custom/featuredProducts";
 import Layout from "@/components/custom/layout";
 import Login from "@/components/custom/login";
@@ -11,7 +12,7 @@ const Page = () => {
   const [isLoginOpen, setIsLoginOpen] = useState(false);
 
   return (
-    <Suspense fallback={<div>Loading layout...</div>}>
+    <Suspense fallback={<AnimatedLoader />}>
       <Layout>
         {isLoginOpen && (
           <Login

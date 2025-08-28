@@ -17,7 +17,7 @@ const Top_navbar = ({ routeChange }) => {
     <div className="top-0 z-20 fixed flex w-screen py-5 px-2 lg:py-5 lg:px-20  items-center justify-center bg-white ">
       <div className="flex items-center justify-between w-full ">
         <div className=" flex items-center ">
-          <span className="font-bold  pl-2 lg:text-2xl">grocery.co</span>
+          <span className="font-bold  pl-2 lg:text-2xl">instamart.shop</span>
         </div>
         <div className="hidden lg:flex lg:justify-around lg:space-x-28 lg:items-center">
 

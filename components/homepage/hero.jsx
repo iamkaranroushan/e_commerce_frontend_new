@@ -43,7 +43,7 @@ const Hero = () => {
             <MdOutlineArrowOutward className="icons lg:text-4xl" />
           </span>
 
-          <p className="text-2xl lg:text-5xl">From Your Trusted Grocery App</p>
+          <p className="text-2xl lg:text-5xl">Your Trust Makes Us The Best </p>
         </div>
         <HeroCard />
       </div>
