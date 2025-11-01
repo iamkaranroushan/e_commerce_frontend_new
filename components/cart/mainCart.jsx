@@ -7,6 +7,8 @@ import { MoonLoader } from 'react-spinners'
 import { Button } from '../ui/button'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import { IoIosArrowUp, IoIosArrowDown } from 'react-icons/io'
+import RouteLoader from "@/components/skeleton/RouteLoader"
+import CartSkeleton from "@/components/skeleton/CartSkeleton"
 
 const CartSummary = ({ formattedTotal, onCheckout }) => (
     <>
@@ -58,20 +60,26 @@ const MainCart = ({ token, setIsLoginOpen }) => {
         try {
             return itemTotal.toLocaleString('en-IN', {
                 style: 'currency',
-                currency: 'INR',
+                currency: 'EUR',
             })
         } catch {
             return `₹${itemTotal}`
         }
     }, [itemTotal])
 
-    if (routeLoading || loading) {
+    if (routeLoading) {
         return (
             <div className="flex flex-col h-[70vh] items-center justify-center">
-                <MoonLoader color="#3a3a3a" size={50} speedMultiplier={1} />
-                <p>{routeLoading ? 'Preparing the order ...' : 'Loading cart items ...'}</p>
+                <RouteLoader/>
             </div>
         )
+    }
+    if (loading) {
+        return (
+            <div className="flex flex-col h-[70vh] items-center justify-center">
+            <CartSkeleton />
+            </div>
+        );
     }
 
     if (!cartItems || cartItems.length === 0) {

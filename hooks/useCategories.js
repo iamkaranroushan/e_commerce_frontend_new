@@ -19,12 +19,24 @@ const useCategories = () => {
               categories {
                 id
                 name
-                description
-                subCategories {
-                  id
+                products{
+                  id 
+                  name 
                   imageUrl
-                  name
                   description
+                  variants {
+                  id
+                  productId
+                  weight
+                  price
+                  mrp
+                  inStock
+                  product{
+                    id
+                    name
+                    imageUrl
+                  }
+                }
                 }
               }
             }

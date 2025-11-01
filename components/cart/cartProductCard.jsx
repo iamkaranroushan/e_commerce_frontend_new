@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
-import { FaMinus, FaRupeeSign } from "react-icons/fa";
+import { FaMinus, FaEuroSign } from "react-icons/fa";
 import { Button } from "../ui/button";
 import useCartAction from "@/hooks/useCartAction";
 import useDeleteCartItem from "@/hooks/useDeleteCartItem";
@@ -78,7 +78,7 @@ const CartProductCard = ({ token, product, setIsLoginOpen, refetchCartItems }) =
                     {/* Price */}
                     <div className="flex items-center gap-1 font-semibold text-gray-900">
                     <span className="text-[15px] lg:text-lg font-semibold">MRP :</span>    
-                    <FaRupeeSign className="text-sm lg:text-lg" />
+                    <FaEuroSign className="text-sm lg:text-lg" />
                         <span className="lg:text-lg">{price * quantity}</span>
                     </div>
                     {/* Quantity Controls */}

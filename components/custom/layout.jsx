@@ -9,7 +9,7 @@ import { Provider } from "react-redux";
 import { store, persistor } from "@/features/auth/authStore";
 import { PersistGate } from "redux-persist/integration/react";
 import { useIsMobile } from "@/hooks/useIsMobile"; // adjust path accordingly
-
+import RouteLoader from "@/components/skeleton/RouteLoader"
 const Layout = ({ children }) => {
   const [loading, setLoading] = useState(false);
   const pathname = usePathname();
@@ -33,18 +33,19 @@ const Layout = ({ children }) => {
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
         <div className="flex flex-col items-center min-h-screen ">
+        
           {<Top_navbar routeChange={routeChange} />}
 
           {/* Show loader as an overlay */}
           {loading && (
-            <div className="fixed inset-0 z-50 flex items-center justify-center bg-white/70">
-              <LoadingSpinner />
-            </div>
+            
+              <RouteLoader />
+            
           )}
 
           {/* Main content */}
           <main
-            className={`flex-grow justify-center w-full mt-14   ${loading && "opacity-50"
+            className={`flex-grow justify-center w-full  ${loading && "opacity-50"
               }`}
           >
             {children}

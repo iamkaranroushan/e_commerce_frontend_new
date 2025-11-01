@@ -30,12 +30,7 @@ const CartWithoutProduct = () => {
             <p className="text-stone-600 mb-6 max-w-md">
                 Looks like you haven’t added anything to your bag yet.
             </p>
-            <button
-                onClick={() => routeChange('/categories')}
-                className="bg-black text-white px-6 py-3 text-sm font-medium tracking-wide hover:bg-stone-800 transition rounded-full"
-            >
-                Keep Shopping
-            </button>
+            
         </div>
     );
 };

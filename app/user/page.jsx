@@ -10,6 +10,7 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { GridLoader } from "react-spinners";
+import RouteLoader from "@/components/skeleton/RouteLoader"
 const user = () => {
 
   const [loading, setLoading] = useState(false);
@@ -88,11 +89,9 @@ const user = () => {
           setIsLogoutOpen(false)
           console.log("close clicked")
         }} />}
-      {loading &&
-        <div className="fixed inset-0 w-screen flex items-center justify-center  bg-white bg-opacity-60 ">
-          <LoadingSpinner />
-        </div>
-      }
+      {loading ? 
+      (<RouteLoader />) :
+          
       <UserPage
         loading={loading}
         isLoginOpen={isLoginOpen}
@@ -105,6 +104,7 @@ const user = () => {
         handleSupportClick={handleSupportClick}
         handleAboutClick={handleAboutClick}
       />
+      }
     </div>
   );
 };

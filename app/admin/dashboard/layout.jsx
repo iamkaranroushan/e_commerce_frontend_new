@@ -10,6 +10,7 @@ import { PersistGate } from "redux-persist/integration/react";
 import OrderNavbar from "@/components/orders/orderNavbar";
 import LoadingSpinner from "@/components/custom/loadingSpinner";
 import AddressNavbar from "@/components/address/addressNav";
+import Top_navbar from "@/components/custom/top_navbar";
 import { Bottom_navbar } from "@/components/custom/bottom_navbar";
 import AdminNavbar from "@/components/admin/adminNav";
 
@@ -20,12 +21,6 @@ const DashboardLayout = ({ children }) => {
     const pathname = usePathname();
     const router = useRouter(); // Using the useRouter hook
     const [loading, setLoading] = useState(false);
-
-    const handleBack = () => {
-        setLoading(true);
-        router.back(); // Navigates to the previous page
-    };
-
     const routeChange = (url) => {
         const currentUrl = window.location.pathname + window.location.search;
         if (url !== currentUrl) {
@@ -43,7 +38,7 @@ const DashboardLayout = ({ children }) => {
             <PersistGate loading={null} persistor={persistor}>
 
                 <div className="flex flex-col items-center min-h-screen">
-
+                    <Top_navbar routeChange={routeChange} />
                     {/* Show loading spinner while loading */}
                     {loading ? (
                         <div className="flex h-[70vh] items-center justify-center">
@@ -51,13 +46,13 @@ const DashboardLayout = ({ children }) => {
                         </div>
                     ) : (
                         <>
-                            {/* Render the ProductNavbar and main content only when not loading */}
-                            <AdminNavbar handleBack={handleBack} />
+                            
                             <main className="flex-grow justify-center w-screen  p-3">
-
                                 {children}
                             </main>
-                            <Bottom_navbar routeChange={routeChange} />
+                            <div className="block lg:hidden w-full fixed bottom-0 z-20">
+                                <Bottom_navbar routeChange={routeChange} />
+                            </div>
                         </>
                     )}
                 </div>

@@ -6,13 +6,14 @@ import Layout from "@/components/custom/layout";
 import Login from "@/components/custom/login";
 import MainFooter from "@/components/custom/mainFooter";
 import Hero from "@/components/homepage/hero";
+import RouteLoader from "@/components/skeleton/RouteLoader";
 import { useState, Suspense } from "react";
 
 const Page = () => {
   const [isLoginOpen, setIsLoginOpen] = useState(false);
 
   return (
-    <Suspense fallback={<AnimatedLoader />}>
+    <Suspense fallback={<RouteLoader />}>
       <Layout>
         {isLoginOpen && (
           <Login
@@ -21,12 +22,10 @@ const Page = () => {
           />
         )}
         <div
-          className={`flex flex-col justify-center bg-black ${isLoginOpen ? "blur-sm" : ""
+          className={`flex flex-col justify-center hide-scrollbar bg-black ${isLoginOpen ? "blur-sm" : ""
             }`}
         >
           <Hero />
-          <FeaturedProducts setIsLoginOpen={setIsLoginOpen} />
-          <MainFooter />
         </div>
       </Layout>
     </Suspense>
@@ -34,3 +33,5 @@ const Page = () => {
 };
 
 export default Page;
+
+{/**<FeaturedProducts setIsLoginOpen={setIsLoginOpen} /> */}

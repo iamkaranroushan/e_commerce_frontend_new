@@ -5,6 +5,7 @@ import useFetchAddressById from "@/hooks/useFetchAddressById";
 import { FiEdit } from "react-icons/fi";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import AddressSkeleton from "@/components/skeleton/AddressSkeleton";
 
 const Address = () => {
   const userId = useSelector((state) => state.auth.id);
@@ -29,7 +30,7 @@ const Address = () => {
     if (userId) fetchAddressesByUser(userId);
   }, [userId]);
 
-  if (loading) return <div>Loading addresses...</div>;
+  if (loading) return <AddressSkeleton />;
   if (error) return <div>Error: {error}</div>;
 
   const addressList = Array.isArray(addresses) ? addresses : addresses ? [addresses] : [];

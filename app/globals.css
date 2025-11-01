@@ -17,6 +17,14 @@ body {
   }
 }
 
+@keyframes progressFill {
+  from { width: 0%; }
+  to { width: 100%; }
+}
+
+.animate-progress {
+  animation: progressFill 5s linear forwards;
+}
 
 @layer base {
   :root {

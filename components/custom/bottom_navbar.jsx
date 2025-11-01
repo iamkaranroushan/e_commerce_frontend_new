@@ -7,16 +7,21 @@ import { usePathname } from "next/navigation";
 import { useSelector } from "react-redux";
 import { LuUserRound } from "react-icons/lu";
 import { FaRegEdit } from "react-icons/fa";
-
+import {applogo} from "../../public/applogo.svg"
 export const Bottom_navbar = ({ routeChange , className }) => {
   const { role } = useSelector((state) => state.auth); // Get the role from auth store
   const pathname = usePathname();
   const isActive = (path) => pathname === path;
 
   return (
-    <div className={` fixed bg-white bottom-0 w-screen flex justify-around items-center p-4 border-t`}>
+    <div className={` z-[100] fixed bg-white bottom-0 w-screen flex justify-around items-center p-4 border-t`}>
       <button onClick={() => routeChange("/")}>
-        <FiHome className={`icons ${isActive("/") && "text-stone-400"} `} />
+        {/* Replace FiHome with applogo.svg */}
+        <img
+          src="/applogo.svg"
+          alt="App Logo"
+          className={`w-[clamp(2rem,5vw,5rem)] h-[clamp(2rem,5vw,5rem)] ${isActive("/") ? "opacity-50" : ""}`}
+        />
       </button>
       <button>
         <TbCategory2

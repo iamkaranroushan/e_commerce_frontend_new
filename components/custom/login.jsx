@@ -128,11 +128,6 @@ const Login = ({ onClose }) => {
 
   return (
     <div className="flex-col fixed inset-0 flex p-6 rounded-t-xl z-50 overflow-y-auto">
-      <div className="flex justify-end mb-4">
-        <span onClick={onClose} className="text-sm text-stone-600 hover:underline">
-          <RxCross1 className="text-xl" />
-        </span>
-      </div>
       {!isOtpStep || !confirmationResult ? (
         <PhoneNumberModal
           onSend={handleSendPhone}

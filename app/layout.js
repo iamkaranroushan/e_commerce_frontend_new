@@ -3,6 +3,7 @@ import "./globals.css";
 import { Toaster } from 'react-hot-toast';
 import { Suspense } from "react";
 import AnimatedLoader from "@/components/custom/animatedLogo";
+import RouteLoader from "@/components/skeleton/RouteLoader";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -28,8 +29,12 @@ export const manrope = Manrope({
 });
 
 export const metadata = {
-  title: "Insta Mart",
-  description:"Modern online shopping app",
+  title: "Noirē",
+  description:"Luxury tools for modern minimalists",
+  icons: {
+    icon: "/favicon.ico", // your new favicon
+    shortcut: "/favicon.ico", // optional for iOS
+  },
   openGraph: {
     images: [
       {
@@ -49,7 +54,7 @@ export default function RootLayout({ children }) {
       <body
         className={`${geistSans.variable} ${comfortaa.variable} ${geistMono.variable} ${manrope.variable} antialiased`}
       >
-        <Suspense fallback={<AnimatedLoader />}>
+        <Suspense fallback={<RouteLoader />}>
           <Toaster position="top-right" />
           {children}
         </Suspense>

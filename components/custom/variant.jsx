@@ -34,7 +34,9 @@ const Variant = ({ onClose, product }) => {
 
     return (
         <div className="fixed inset-0 flex items-center justify-center bg-black/50 z-50 h-[100vh]">
+            
             <div className="flex flex-col p-5 gap-4 bg-white rounded-xl shadow-lg w-80 text-center relative">
+                
                 {/* Close Button */}
                 <div className="flex justify-between items-start p-1">
                     <div className="flex flex-col items-start">
@@ -95,6 +97,8 @@ const Variant = ({ onClose, product }) => {
                         );
                     })}
                 </div>
+
+
             </div>
         </div>
     );

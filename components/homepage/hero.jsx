@@ -1,51 +1,131 @@
-import { useState, useEffect } from "react";
+"use client";
+import { useLayoutEffect, useRef, useState, useEffect } from "react";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { ScrollToPlugin } from "gsap/ScrollToPlugin";
+
+import FixedPen from "./fixedPen";
 import HeroCard from "../custom/HeroCard";
-import TopCategoryCard from "../custom/TopCategoryCard";
-import { Button } from "../ui/button";
-import { MdOutlineArrowOutward } from "react-icons/md";
+import PenBody from "./penBody";
+import PenNib from "./penNib";
+import PenFinal from "./penFinal";
+import RouteLoader from "../skeleton/RouteLoader";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import LoadingSpinner from "../custom/loadingSpinner";
+
+gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
+
 const Hero = () => {
   const [loading, setLoading] = useState(false);
+  const containerRef = useRef(null);
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const router = useRouter();
-
-  const routeChange = (url) => {
-    const currentUrl = window.location.pathname + window.location.search;
-    if (url !== currentUrl) {
-      setLoading(true);
-      router.push(url, { scroll: false });
-    }
-  };
 
   useEffect(() => {
     setLoading(false);
   }, [pathname, searchParams]);
 
+  useLayoutEffect(() => {
+  const ctx = gsap.context(() => {
+    const sections = gsap.utils.toArray(".panel");
+    const pen = document.querySelector(".pen");
+    let currentIndex = 0;
+    let isAnimating = false;
+
+    // 🪄 Main timeline controlling pen motion
+    const tl = gsap.timeline({ paused: true });
+    tl.addLabel("section0")
+      .to(pen, { x: -500, y: 100, scale: 2.8, duration: 1.5, ease: "power2.inOut" })
+      .addLabel("section1")
+      .to(pen, { x: -500, y: -800, scale: 3.5, duration: 2.5, ease: "power2.inOut" })
+      .addLabel("section2")
+      .to(pen, { x: 400, y: 0, scale: 1, duration: 2, ease: "power2.inOut" })
+      .addLabel("section3");
+
+    // ✨ Function to go to a section smoothly
+    const goToSection = (index) => {
+      if (isAnimating || index < 0 || index >= sections.length) return;
+      isAnimating = true;
+
+      gsap.to(window, {
+        scrollTo: { y: sections[index], offsetY: 0 },
+        duration: 1.2,
+        ease: "power2.inOut",
+        onUpdate: () => ScrollTrigger.update(),
+        onComplete: () => (isAnimating = false),
+      });
+
+      tl.tweenTo(`section${index}`, {
+        duration: 1.2,
+        ease: "power2.inOut",
+      });
+
+      currentIndex = index;
+    };
+
+    // 🖱️ Manual scroll (wheel) handling
+    const handleScroll = (e) => {
+      e.preventDefault();
+      if (isAnimating) return;
+      if (e.deltaY > 0) goToSection(currentIndex + 1);
+      else goToSection(currentIndex - 1);
+    };
+
+    // 🧠 Sync timeline with normal scroll (e.g. scrollbar drag or page down)
+    ScrollTrigger.create({
+      trigger: containerRef.current,
+      start: "top top",
+      end: "bottom bottom",
+      scrub: 1,
+      onUpdate: (self) => {
+        const progress = self.progress;
+        tl.progress(progress);
+      },
+    });
+
+    // 🧩 Event listener
+    window.addEventListener("wheel", handleScroll, { passive: false });
+
+    return () => {
+      window.removeEventListener("wheel", handleScroll);
+      ScrollTrigger.getAll().forEach((t) => t.kill());
+      tl.kill();
+    };
+  }, containerRef);
+
+  return () => ctx.revert();
+}, []);
+
+
+
   return (
     <>
-
-
       {loading && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-white bg-opacity-80">
-          <LoadingSpinner />
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-white bg-opacity-80 hide-scrollbar">
+          <RouteLoader />
         </div>
       )}
-      <div className="flex flex-col  gap-6 lg:gap-20 bg-white  px-4 lg:px-20 lg:h-[95vh] h-[40vh] justify-center">
-        <div onClick={() => routeChange("/categories")} className=" p-2 gap-2 lg:gap-8 cursor-pointer flex flex-col mt-24">
-         
-          <span className="flex items-center gap-4">
-            <span className=" lg:text-9xl text-5xl font-extrabold">
-              Shop Now
-            </span>
 
-            <MdOutlineArrowOutward className="icons lg:text-4xl" />
-          </span>
+      <div ref={containerRef} className="relative bg-white">
+        {/* Fixed Pen */}
+        <FixedPen />
 
-          <p className="text-2xl lg:text-5xl">Your Trust Makes Us The Best </p>
-        </div>
-        <HeroCard />
+        {/* Scrollable Sections */}
+        <section className="panel h-screen flex items-center justify-center">
+          <HeroCard />
+        </section>
+
+        <section className="panel h-screen flex items-center justify-center">
+          <PenBody />
+        </section>
+
+        <section className="panel h-screen flex items-center justify-center">
+          <PenNib />
+        </section>
+        
+        <section className="panel h-screen flex items-center justify-center">
+          <PenFinal />
+        </section>
       </div>
     </>
   );

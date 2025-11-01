@@ -17,13 +17,14 @@ const buttonVariants = cva(
           "border border-input bg-background shadow-sm hover:bg-accent hover:text-accent-foreground",
         secondary:
           "bg-secondary text-secondary-foreground ",
-        ghost: "hover:bg-accent hover:text-accent-foreground",
+        ghost: "hover:bg-accen  t hover:text-accent-foreground",
         link: "text-primary underline-offset-4 hover:underline",
         logout: "bg-red-500 text-primary-foreground shadow active:bg-red-800",
         cancel: "border border-stone-400 bg-background",
         increase: "text-white active:bg-white active:text-black bg-stone-900 text-white border border-stone-700",
         order: "text-white lg:text-lg active:bg-white active:text-black bg-stone-900 text-white border border-stone-700",
-        addToCart: "text-white active:bg-white active:text-black bg-stone-900 text-white border border-stone-700",
+        addToCart: "text-white  bg-stone-800 hover:bg-black  rounded-lg",
+        addToCart1: "text-white hover:bg-stone-700  bg-stone-900 text-white border border-stone-700",
         decrease: " text-stone-700 rounded-md border border-stone-700 active:bg-red-800 active:text-white active:border-red-800",
         delete: "text-stone-700 rounded-md border border-stone-700 active:bg-red-800 active:text-white active:border-red-800",
         address: "text-white active:bg-white active:text-black bg-stone-900 text-white border border-stone-700",
@@ -34,6 +35,7 @@ const buttonVariants = cva(
         subscribe: "bg-stone-500 active:text-black active:bg-white font-bold",
         hero_button: "bg-black border text-white  active:bg-white active:text-black active:font-bold font-bold",
         login2: "bg-black text-white  font-medium tracking-wide hover:bg-stone-800 transition rounded-full",
+        seeMore: "text-white hover:bg-stone-500  bg-stone-700 text-white border border-stone-700",
       },
       size: {
         default: "h-9 px-4 py-2",
@@ -48,6 +50,9 @@ const buttonVariants = cva(
         login: "rounded-lg h-10 p-6 lg:py-8 w-full mt-4",
         checkout: "rounded-3xl h-10 w-full p-6",
         login2: "px-6 py-3 text-sm",
+        addToCart:"px-6 min-w-[100px] py-[clamp(0.1rem,4vw,1rem)] text-[clamp(1rem,3vw,1rem)]",
+        seeMore:"px-3 py-[clamp(0.1rem,2vw,1rem)] text-[clamp(0.7rem,2vw,1rem)]",
+        
       },
     },
     defaultVariants: {
