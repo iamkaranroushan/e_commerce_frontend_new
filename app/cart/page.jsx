@@ -12,7 +12,7 @@ const CartPage = () => {
 
 
   return (<>
-    {isLoginOpen && <Login setIsLoginOpen={setIsLoginOpen} onClose={() => setIsLoginOpen(false)} />}
+        
     <div className={`mt-16 ${isLoginOpen ? "blur-sm" : ""}`}>
       {!token ? (
         <CartWithoutLogin setIsLoginOpen={setIsLoginOpen} />
