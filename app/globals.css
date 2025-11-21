@@ -16,6 +16,18 @@ body {
     scrollbar-width: none; /* Firefox */
   }
 }
+/* Default → mobile first */
+.noire-text {
+  writing-mode: vertical-rl;
+}
+
+/* For laptops & desktops */
+@media (min-width: 1024px) {
+  .noire-text {
+    writing-mode: horizontal-tb;
+  }
+}
+
 
 @keyframes progressFill {
   from { width: 0%; }
