@@ -11,7 +11,7 @@ const ProductsPage = () => {
   const { categoryId } = useParams();
   const { products, loading, error } = useProductsByCategory({ categoryId });
   const [isLoginOpen, setIsLoginOpen] = useState(false);
-
+  
   // 🦴 Show Skeleton Loader when loading
   if (loading) {
     return (
