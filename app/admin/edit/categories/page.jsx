@@ -10,7 +10,7 @@ import { MdDeleteOutline } from 'react-icons/md';
 import { RxCross2 } from 'react-icons/rx';
 
 const EditCategoryPage = () => {
-    const { categories, refetch } = useCategories();
+    const { categories = [], refetch } = useCategories();   // ← SAFE ARRAY
     const { createCategory, loading: creating } = useCreateCategory();
     const { deleteCategory, loading: deleting } = useDeleteCategory();
     const { updateCategory, loading: updating } = useUpdateCategory();
@@ -38,7 +38,7 @@ const EditCategoryPage = () => {
 
     const handleUpdate = async () => {
         if (!editedName.trim()) return;
-        const isUpdated = await updateCategory(editingId, editedName)
+        const isUpdated = await updateCategory(editingId, editedName);
         if (isUpdated) {
             setEditingId(null);
             setEditedName('');
@@ -72,7 +72,8 @@ const EditCategoryPage = () => {
 
     return (
         <div className='flex flex-col justify-center p-3 mt-12 gap-4'>
-            {/* Deletion Confirmation Banner */}
+            
+            {/* DELETE CONFIRMATION */}
             {confirmDeleteId && (
                 <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4 shadow-md">
                     <strong className="font-bold">Confirm Deletion:</strong>
@@ -96,6 +97,7 @@ const EditCategoryPage = () => {
                 </div>
             )}
 
+            {/* CREATE CATEGORY */}
             <div className='flex gap-2 pt-4 items-center'>
                 <input
                     type='text'
@@ -113,10 +115,11 @@ const EditCategoryPage = () => {
                 </button>
             </div>
 
+            {/* CATEGORY LIST */}
             <div>
                 {categories.map((category) => (
                     <div key={category.id} className='flex justify-between items-center'>
-                        {/*updating the category .*/}
+
                         {editingId === category.id ? (
                             <div className='flex items-center gap-2 w-full'>
                                 <input
@@ -140,20 +143,19 @@ const EditCategoryPage = () => {
                                 </button>
                             </div>
                         ) : (
-                            <div className=' flex justify-between w-full border-b items-center py-6'>
-                                {/*displaying the category.*/}
-                                <div className=''>
-                                    <span className='text-stone-800 font-bold text-xl'>{category.name}</span>
+                            <div className='flex justify-between w-full border-b items-center py-6'>
+                                <div>
+                                    <span className='text-stone-800 font-bold text-xl'>
+                                        {category.name}
+                                    </span>
                                 </div>
                                 <div className='flex gap-4'>
-                                    {/*edit option.*/}
                                     <span
                                         onClick={() => handleEdit(category)}
                                         className='cursor-pointer'
                                     >
                                         <CiEdit className='icons' />
                                     </span>
-                                    {/*delete option.*/}
                                     <span
                                         onClick={() => triggerDeleteConfirmation(category.id, category.name)}
                                         className='cursor-pointer'
@@ -163,6 +165,7 @@ const EditCategoryPage = () => {
                                 </div>
                             </div>
                         )}
+
                     </div>
                 ))}
             </div>
