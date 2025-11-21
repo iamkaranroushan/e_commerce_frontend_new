@@ -114,7 +114,7 @@ const EditCategoryPage = () => {
             </div>
 
             <div>
-                {categories.map((category) => (
+                {categories?.map((category) => (
                     <div key={category.id} className='flex justify-between items-center'>
                         {/*updating the category .*/}
                         {editingId === category.id ? (
