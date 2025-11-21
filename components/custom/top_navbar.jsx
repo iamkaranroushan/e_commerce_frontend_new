@@ -33,11 +33,9 @@ const Top_navbar = ({ routeChange }) => {
             onClick={() => routeChange("/")}
             className=" cursor-default font-bold  lg:text-2xl"
           >
-            NOIRĒ
+            NOIRE
           </span>
         </div>
-
-        
 
         <div className="hidden lg:flex lg:justify-around lg:space-x-8 lg:items-center">
           {/* Search */}
@@ -80,12 +78,15 @@ const Top_navbar = ({ routeChange }) => {
             </button>
           </div>
         </div>
-          <div onClick={() => setShowSearch(true)} className=" lg:hidden flex border border-stone-100 p-2 rounded-lg"> 
-            <button >
-                <IoIosSearch className="text-[clamp(1rem,5vw,1.5rem)] mr-2" />
-            </button>
-            <span className="">Search</span>        
-          </div>
+        <div
+          onClick={() => setShowSearch(true)}
+          className=" lg:hidden flex border border-stone-100 p-2 rounded-lg"
+        >
+          <button>
+            <IoIosSearch className="text-[clamp(1rem,5vw,1.5rem)] mr-2" />
+          </button>
+          <span className="">Search</span>
+        </div>
       </div>
 
       {/* Search Modal */}
