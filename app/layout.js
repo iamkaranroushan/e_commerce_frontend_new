@@ -29,7 +29,7 @@ export const manrope = Manrope({
 });
 
 export const metadata = {
-  title: "Noirē",
+  title: "Noire",
   description:"Luxury tools for modern minimalists",
   icons: {
     icon: "/favicon.ico", // your new favicon
