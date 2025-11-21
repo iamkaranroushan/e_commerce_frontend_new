@@ -50,7 +50,7 @@ const Layout = ({ children }) => {
           >
             {children}
           </main>
-          {isMobile && <Bottom_navbar routeChange={routeChange} />}
+          {/*isMobile && <Bottom_navbar routeChange={routeChange} />*/}
         </div>
       </PersistGate>
     </Provider>
