@@ -31,9 +31,9 @@ const user = () => {
       console.log(url);
       router.push(url, { scroll: false });
     }
-  };
-  useEffect(() => {
-    setLoading(false); // Cleanup timer when the effect re-runs
+    };
+    useEffect(() => {
+      setLoading(false); // Cleanup timer when the effect re-runs
   }, [pathname, searchParams]);
 
   // Access the token from Redux store
