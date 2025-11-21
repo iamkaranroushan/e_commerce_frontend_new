@@ -9,19 +9,20 @@ const HeroCard = () => {
         initial={{ opacity: 0, y: 40 }}
         animate={{ opacity: 0.1, y: 0 }}
         transition={{ duration: 1 }}
-        className="absolute text-[clamp(6rem,18vw,25rem)] font-extrabold tracking-tight text-stone-900 select-none leading-[0.8]"
+        className="noire-text absolute text-[clamp(8rem,20vw,60rem)] lg:text-[clamp(8rem,20vw,60rem)] font-extrabold tracking-tight text-stone-900 select-none leading-[0.8]  
+        "
       >
-        NOIRĒ
+        PHEONIX
       </motion.h1>
 
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 1.2, delay: 0.8 }}
-        className="absolute bottom-[10%] text-center"
+        className="absolute bottom-[10%] lg:bottom-[10%] text-center"
       >
-        <h2 className="text-stone-700 text-[clamp(1rem,2vw,1.2rem)] tracking-wide uppercase">
-          The ZoiF Collection
+        <h2 className="text-stone-700 lg:text-[clamp(0.5rem,2vw,1.8rem)] text-[clamp(1rem,2vw,2rem)] tracking-wide uppercase">
+          A NOIRE PRODUCT
         </h2>
       </motion.div>
     </section>
