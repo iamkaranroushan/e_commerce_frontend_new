@@ -26,7 +26,7 @@ const EditProductPage = () => {
   return (
     <div className='flex flex-col justify-center p-3 mt-12'>
       <div className='grid gap-4'>
-        {categories.map(category => (
+        {categories?.map(category => (
           <div key={category.id} className='border-b'>
             <div
               className='py-4 flex justify-between items-center'

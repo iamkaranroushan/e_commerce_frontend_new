@@ -30,9 +30,6 @@ const EditInner = () => {
           <div onClick={() => handleNavigate('/admin/edit/categories')} className='hover:shadow-lg hover:scale-[1.01] cursor-pointer transition-all duration-200 flex flex-col items-center justify-center w-full rounded-lg h-40 bg-gradient-to-br from-white to-stone-300'>
             <span className='text-3xl font-bold'>Categories</span>
           </div>
-          <div onClick={() => handleNavigate('/admin/edit/subCategories')} className='hover:shadow-lg hover:scale-[1.01] cursor-pointer transition-all duration-200 flex flex-col items-center justify-center w-full rounded-lg h-40 bg-gradient-to-br from-white to-stone-300'>
-            <span className='text-3xl font-bold'>Subcategories</span>
-          </div>
           <div onClick={() => handleNavigate('/admin/edit/products')} className='hover:shadow-lg hover:scale-[1.01] cursor-pointer transition-all duration-200 flex flex-col items-center justify-center w-full rounded-lg h-40 bg-gradient-to-br from-white to-stone-300'>
             <span className='text-3xl font-bold'>Products</span>
           </div>
