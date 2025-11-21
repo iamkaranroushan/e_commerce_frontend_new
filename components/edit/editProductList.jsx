@@ -29,7 +29,7 @@ const EditProductList = ({ categoryId }) => {
 
     return (
         <div className='flex flex-col gap-2 px-4 pb-4'>
-            {products.map(product => (
+            {products?.map(product => (
                 <div key={product.id} className='p-2 border rounded-md flex flex-col gap-2'>
                     <div className='flex justify-between items-center'>
                         <div className='flex items-center gap-4'>
