@@ -5,7 +5,7 @@ import ProductCarousel from "@/components/custom/productCarousal";
 import useProductsByCategory from "@/hooks/useProductsByCategory";
 
 const ExpandingModal = ({ onClose }) => {
-  const categoryId = "1";
+  const categoryId = "113";
   const { products, loading, error } = useProductsByCategory({ categoryId });
 
   return (
@@ -47,7 +47,7 @@ const ExpandingModal = ({ onClose }) => {
           </button>
 
           {/* Product Carousel */}
-          <div className="w-full h-[80vh]">
+          <div className="w-[clamp(20rem,90vw,57rem)] lg:w-[clamp(15rem,80vw,72rem)]  h-[90vh]">
             <ProductCarousel products={products} />
           </div>
         </motion.div>
