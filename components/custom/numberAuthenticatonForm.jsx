@@ -6,7 +6,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useRef, useEffect } from "react";
 import { Button } from "../ui/button";
 import { IoClose } from "react-icons/io5";
-
+import { RxCross1 } from "react-icons/rx";
+ import { ClipLoader } from "react-spinners";
 const phoneSchema = z.object({
     phoneNumber: z
         .string()
@@ -37,10 +38,14 @@ export default function PhoneNumberModal({ onClose, onSend, firebaseErrors, isOt
         <div className="fixed inset-0 z-50 bg-black/40 flex justify-center items-center">
             <div className="bg-white rounded-xl w-[90%] max-w-sm p-6 relative">
                 {/* Close Icon */}
-                <div className="flex justify-end mb-4 cursor-pointer" onClick={onClose}>
-                    <IoClose size={20} />
+               <div className="flex justify-end">
+                <button
+                    onClick={onClose}
+                    className="text-stone-800 hover:text-black hover:bg-stone-300 p-2 bg-stone-200 rounded-full transition-all z-20"
+                >
+                    <RxCross1 size={18} />
+                </button>
                 </div>
-
                 {/* Form */}
                 <form onSubmit={handleSubmit(onSubmit)} className="w-full">
                     <h2 className="text-xl font-semibold mb-2">Enter your mobile number</h2>
@@ -49,7 +54,7 @@ export default function PhoneNumberModal({ onClose, onSend, firebaseErrors, isOt
                     </p>
 
                     <div className="flex items-center border rounded-lg overflow-hidden mb-2">
-                        <span className="px-3 text-sm text-gray-500 border-r">+91</span>
+                        <span className="px-3 text-sm text-stone-500 border-r">+91</span>
                         <Controller
                             name="phoneNumber"
                             control={control}
@@ -59,7 +64,7 @@ export default function PhoneNumberModal({ onClose, onSend, firebaseErrors, isOt
                                     type="tel"
                                     maxLength={10}
                                     placeholder="Enter mobile number"
-                                    className="flex-1 p-4 outline-none placeholder:text-sm"
+                                    className="flex-1 p-4 outline-none placeholder:text-sm placeholder:text-stone-400 text-stone-800 "
                                     onChange={(e) => {
                                         setIsOtpSent(false);
                                         setFirebaseErrors(false);
@@ -89,17 +94,17 @@ export default function PhoneNumberModal({ onClose, onSend, firebaseErrors, isOt
 
                     {coolDown > 0 ? (
                         <Button
-                            size="order"
+                            size="otp"
                             disabled
                         >
                             resend in {coolDown}s
                         </Button>
                     ) : (
                         <Button
-                            size="order"
+                            size="otp"
                             disabled={loading}
                         >
-                            {loading ? "sending..." : "Send OTP"}
+                            {loading ? <ClipLoader size={16} color="#fff" /> : "Send OTP"}
                         </Button>
                     )}
 

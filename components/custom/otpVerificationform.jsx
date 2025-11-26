@@ -4,14 +4,17 @@ import { Button } from "../ui/button";
 import { IoClose } from "react-icons/io5";
 import { MdArrowBackIosNew } from "react-icons/md";
 import useSendOtp from "@/hooks/useSendOtp";
-
-const OtpVerificationModal = ({ onClose, phoneNumber, onVerify, onBack, isOtpSent,  firebaseErrors, setFirebaseErrors }) => {
+import { RxCross1 } from "react-icons/rx"; 
+ import { ClipLoader } from "react-spinners";
+ 
+const OtpVerificationModal = ({ onClose, phoneNumber, onVerify, onResend, onBack, isOtpSent, loading,  firebaseErrors, setFirebaseErrors }) => {
     const [otpTimer, setOtpTimer] = useState(300); // 5 minutes = 300 seconds
     const [resendCooldown, setResendCooldown] = useState(0);
     const [otp, setOtp] = useState(["", "", "", "", "", ""]);
     const [resendError, setResendError] = useState(null);
     const inputRefs = useRef([]);
-    // const { sendOtp, loading, error } = useSendOtp();
+   
+    const [verifying, setVerifying] = useState(false); 
 
     useEffect(() => {
         if (otpTimer <= 0) return;
@@ -53,6 +56,26 @@ const OtpVerificationModal = ({ onClose, phoneNumber, onVerify, onBack, isOtpSen
         }
     };
 
+    const handleResend = async () => {
+        
+        if (resendCooldown > 0 || otpTimer <= 0) return;
+       setResendError("")
+        setResendCooldown(30);
+        setOtpTimer(300);
+        setOtp(["", "", "", "", "", ""]);
+        inputRefs.current[0]?.focus();
+        setFirebaseErrors(false);
+        try {
+            setResendCooldown(30); // 30 sec cooldown
+            setOtpTimer(300); // reset OTP expiry timer
+            await onResend(); // your function passed in props
+        } catch (error) {
+            console.log(error)
+            setResendError("Failed to resend OTP. Please try again.");
+        }
+    };
+
+
 
     const maskedPhone = phoneNumber?.slice(-4);
 
@@ -61,10 +84,18 @@ const OtpVerificationModal = ({ onClose, phoneNumber, onVerify, onBack, isOtpSen
             <div className="bg-white rounded-xl w-[90%] max-w-sm p-6 relative">
                 {/* Close */}
                 <div className="flex justify-between items-center mb-4">
-                    <div className="cursor-pointer" onClick={onBack}><MdArrowBackIosNew /></div>
-                    <div className="cursor-pointer" onClick={onClose}>
-                        <IoClose size={20} />
-                    </div>
+                    <button
+                        onClick={onBack}
+                        className=" mb-4  text-stone-800 hover:text-black hover:bg-stone-300 inline-flex p-2 bg-stone-200 rounded-full transition-all z-20"
+                    >
+                        <MdArrowBackIosNew size={18} />
+                    </button>
+                    <button
+                        onClick={onClose}
+                        className="mb-4 text-stone-800 hover:text-black hover:bg-stone-300 inline-flex p-2 bg-stone-200 rounded-full transition-all z-20"
+                    >
+                        <RxCross1 size={18} />
+                    </button>
                 </div>
 
                 {/* Headings */}
@@ -102,9 +133,9 @@ const OtpVerificationModal = ({ onClose, phoneNumber, onVerify, onBack, isOtpSen
                 <Button
                     onClick={handleSubmit}
                     className="w-full p-6"
-                    disabled={otp.join("").length !== 6 || otpTimer <= 0}
+                    disabled={otp.join("").length !== 6 || otpTimer <= 0 || loading}
                 >
-                    Verify
+                   {loading ? <ClipLoader size={16} color="#fff" /> : "Verify OTP"}
                 </Button>
 
                 {/* Timer / Expired Notice */}
@@ -114,14 +145,16 @@ const OtpVerificationModal = ({ onClose, phoneNumber, onVerify, onBack, isOtpSen
                 <div className="text-center mt-3">
                     {resendCooldown > 0 ? (
                         <p className="text-sm text-muted-foreground">
-                            Resend available in {resendCooldown}s
+                            Resend OTP in {resendCooldown}s
                         </p>
                     ) : (
 
                         <Button
+                            onClick={handleResend}
+                            disabled={resendCooldown > 0}
                             className="active:bg-white cursor-pointer bg-white shadow-none text-stone-600 hover:text-black hover:underline"
                         >
-                            Resend code
+                            Resend OTP
                         </Button>
                     )}
 
