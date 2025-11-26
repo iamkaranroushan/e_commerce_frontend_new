@@ -5,7 +5,7 @@ import ProductCarousel from "@/components/custom/productCarousal";
 import useProductsByCategory from "@/hooks/useProductsByCategory";
 
 const ExpandingModal = ({ onClose }) => {
-  const categoryId = "113";
+  const categoryId = "1";
   const { products, loading, error } = useProductsByCategory({ categoryId });
 
   return (
