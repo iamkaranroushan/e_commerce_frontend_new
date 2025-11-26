@@ -30,7 +30,7 @@ export const manrope = Manrope({
 
 export const metadata = {
   title: "Noire",
-  description:"Luxury tools for modern minimalists",
+  description:"Noire is a product design company, giving products a professional identity.",
   icons: {
     icon: "/favicon.ico", // your new favicon
     shortcut: "/favicon.ico", // optional for iOS
@@ -38,10 +38,10 @@ export const metadata = {
   openGraph: {
     images: [
       {
-        url: "/bath-essentials.jpg", // replace with your actual image path or full URL
+        url: "/Hero-image.png", // replace with your actual image path or full URL
         width: 630,
         height: 630,
-        alt: "Insta Mart",
+        alt: "Noire",
       },
     ],
   },
