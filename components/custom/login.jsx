@@ -44,37 +44,64 @@ const Login = ({ onClose }) => {
 
   const handleSendPhone = async (number) => {
     setLoading(true);
+      try {
+
+        const formattedPhoneNumber = number.startsWith("+91") ? number : `+91${number}`;
+        setPhoneNumber(formattedPhoneNumber);
+        console.log(auth, phoneNumber, recaptchaVerifier);
+
+        const result = await signInWithPhoneNumber(auth, formattedPhoneNumber, recaptchaVerifier);
+        console.log(result);
+        setConfirmationResult(result);
+        setIsOtpSent(true);
+        setLoading(false)
+        setIsOtpStep(true);
+
+        console.log(confirmationResult)
+
+      } catch (err) {
+        setLoading(false)
+        setCoolDown(0)
+        if (err.code === 'auth/invalid-phone-number') {
+          setFirebaseErrors("Invalid phone number. please check or try again.");
+        } else if (err.code === 'auth/too-many-requests') {
+          setFirebaseErrors("Too many otp requests from this number. please try again after some time.");
+        } else {
+          setFirebaseErrors("invalid credentials.");
+        }
+        console.log(err);
+      }
+  };
+
+  const handleResendOtp = async () => {
+    if (coolDown > 0) return;
+    setFirebaseErrors("");
+    setCoolDown(30);     // cooldown
+    setIsOtpSent(false); // optional UI logic for your buttons
+
     try {
+      const result = await signInWithPhoneNumber(
+        auth,
+        phoneNumber,
+        recaptchaVerifier
+      );
 
-      const formattedPhoneNumber = number.startsWith("+91") ? number : `+91${number}`;
-      setPhoneNumber(formattedPhoneNumber);
-      console.log(auth, phoneNumber, recaptchaVerifier);
-
-      const result = await signInWithPhoneNumber(auth, formattedPhoneNumber, recaptchaVerifier);
-      console.log(result);
       setConfirmationResult(result);
       setIsOtpSent(true);
-      setLoading(false)
-      setIsOtpStep(true);
-
-      console.log(confirmationResult)
-
     } catch (err) {
-      setLoading(false)
-      setCoolDown(0)
-      if (err.code === 'auth/invalid-phone-number') {
-        setFirebaseErrors("Invalid phone number. please check or try again.");
-      } else if (err.code === 'auth/too-many-requests') {
-        setFirebaseErrors("Too many otp requests from this number. please try again after some time.");
+      if (err.code === "auth/too-many-requests") {
+        setFirebaseErrors("Too many OTP attempts. Try again later.");
       } else {
-        setFirebaseErrors("invalid credentials.");
+        setFirebaseErrors("Failed to resend OTP.");
       }
-      console.log(err);
     }
   };
 
 
+
+
   const onVerify = async (otpCode) => {
+    setLoading(true);
     try {
       console.log(otpCode);
       const userCredential = await confirmationResult.confirm(otpCode);
@@ -110,11 +137,13 @@ const Login = ({ onClose }) => {
 
         console.log("data added to redux store")
       }
-
+      
       console.log("closing modal")
       onClose();
+      setLoading(false)
       router.refresh();
     } catch (err) {
+      setLoading(false)
       if (err.code === "auth/invalid-verification-code") {
         setFirebaseErrors("Incorrect otp");
       }
@@ -142,9 +171,9 @@ const Login = ({ onClose }) => {
       ) : (
         <OtpVerificationModal
           phoneNumber={phoneNumber}
+          onResend={handleResendOtp}
           onVerify={onVerify}
           isOtpSent={isOtpSent}
-
           firebaseErrors={firebaseErrors}
           setFirebaseErrors={setFirebaseErrors}
           loading={loading}
