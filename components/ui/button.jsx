@@ -47,6 +47,7 @@ const buttonVariants = cva(
         subscribe: "h-12 px-4 py-6 rounded-lg lg:py-12 text-lg lg:text-3xl",
         address: "rounded-lg h-10 p-6 w-full",
         order: "rounded-lg h-10 p-6 lg:py-8 w-full",
+        otp: "rounded-lg h-10 p-6 lg:py-8 w-full",
         login: "rounded-lg h-10 p-6 lg:py-8 w-full mt-4",
         checkout: "rounded-3xl h-10 w-full p-6",
         login2: "px-6 py-3 text-sm",
