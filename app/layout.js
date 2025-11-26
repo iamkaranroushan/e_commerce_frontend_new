@@ -38,9 +38,9 @@ export const metadata = {
   openGraph: {
     images: [
       {
-        url: "/metadata_img.png", // replace with your actual image path or full URL
-        width: 1080,
-        height: 1080,
+        url: "/gradient-pen-image.png", // replace with your actual image path or full URL
+        width: 500,
+        height: 500,
         alt: "Noire",
       },
     ],
