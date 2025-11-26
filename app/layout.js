@@ -38,7 +38,7 @@ export const metadata = {
   openGraph: {
     images: [
       {
-        url: "/category.png", // replace with your actual image path or full URL
+        url: "/META.png", // replace with your actual image path or full URL
         width: 630,
         height: 630,
         alt: "Noire",
