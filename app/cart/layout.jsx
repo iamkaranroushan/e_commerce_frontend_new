@@ -65,9 +65,9 @@ const CartLayout = ({ children }) => {
               {children}
             </main>
 
-            <div className="block lg:hidden w-full fixed bottom-0 z-20">
+            {/*<div className="block lg:hidden w-full fixed bottom-0 z-20">
                 <Bottom_navbar routeChange={routeChange} />
-            </div>
+              </div>*/}
             </>
           )
           }
