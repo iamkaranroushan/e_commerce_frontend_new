@@ -9,11 +9,10 @@
   import { usePathname, useRouter, useSearchParams } from "next/navigation";
   import RouteLoader from "@/components/skeleton/RouteLoader";
   import Login from "@/components/custom/login";
+  import ProductCarouselSkeleton from "@/components/skeleton/ProductCarouselskeleton"
   const ProductCarousel = ({products}) => {
 
-
     const token = useSelector((state) => state.auth.token);
-
     const [isLoginOpen, setIsLoginOpen] = useState(false);
     const [currentIndex, setCurrentIndex] = useState(0);
     const [wrapperWidth, setWrapperWidth] = useState(0);
@@ -186,7 +185,10 @@
     // Compute drag constraints (left negative, right zero)
     const maxOffset = wrapperWidth * Math.max(0, products.length - 1);
     const dragConstraints = { left: -maxOffset, right: 0 };
-
+    
+    if (!products || products.length === 0) {
+      return <ProductCarouselSkeleton />;
+    }
     return (
       
       <div className="relative w-full h-full overflow-hidden">
