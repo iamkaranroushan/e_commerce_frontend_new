@@ -291,7 +291,7 @@
                       </p>
 
                       <div className="text-[clamp(1.6rem,5vw,2rem)]  lg:text-[clamp(0.5rem,3vw,2rem)] font-semibold text-stone-800 mb-6">
-                        ${variant?.price ?? "--"}
+                        €{variant?.price ?? "--"}
                       </div>
 
                       {/* Button — fixed size to avoid layout shift */}
