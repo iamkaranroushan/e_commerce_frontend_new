@@ -84,11 +84,11 @@ const AddressFormComponent = ({ className, onClose, fetchAddressesByUser, existi
         <form onSubmit={handleSubmit(onSubmit)} className={className}>
             <div className="flex flex-col gap-4">
                 {[
-                    { name: "streetAddress", label: "Street address", placeholder: "Danapur, cantt road, opposite of golamber" },
-                    { name: "landmark", label: "Landmark", placeholder: "Opposite of Kalyan Jewellers" },
-                    { name: "city", label: "City", placeholder: "Bihar" },
-                    { name: "state", label: "State", placeholder: "Patna" },
-                    { name: "postalCode", label: "Pin code", placeholder: "811215" },
+                    { name: "streetAddress", label: "Street address", placeholder: "Musterstraße 27" },
+                    { name: "landmark", label: "Landmark", placeholder: "Near Alexanderplatz" },
+                    { name: "city", label: "City", placeholder: "Berlin" },
+                    { name: "state", label: "State", placeholder: "Berlin" },
+                    { name: "postalCode", label: "Pin code", placeholder: "10117" },
                 ].map(({ name, label, placeholder, type = "text" }) => (
                     <div key={name} className="flex flex-col space-y-2">
                         <Controller
