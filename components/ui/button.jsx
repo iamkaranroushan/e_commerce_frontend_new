@@ -17,10 +17,10 @@ const buttonVariants = cva(
           "border border-input bg-background shadow-sm hover:bg-accent hover:text-accent-foreground",
         secondary:
           "bg-secondary text-secondary-foreground ",
-        ghost: "hover:bg-accen  t hover:text-accent-foreground",
+        ghost: "hover:bg-accent hover:text-accent-foreground",
         link: "text-primary underline-offset-4 hover:underline",
-        logout: "bg-red-500 text-primary-foreground shadow active:bg-red-800",
-        cancel: "border border-stone-400 bg-background",
+        logout: "bg-red-600 text-white hover:bg-red-500 ",
+        cancel: "border border-stone-300 text-stone-800 hover:text-stone-500 ",
         increase: "text-white active:bg-white active:text-black bg-stone-900 text-white border border-stone-700",
         order: "text-white lg:text-lg active:bg-white active:text-black bg-stone-900 text-white border border-stone-700",
         addToCart: "text-white  bg-stone-800 hover:bg-black  rounded-lg",
