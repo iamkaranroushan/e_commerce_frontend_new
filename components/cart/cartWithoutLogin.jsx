@@ -2,8 +2,7 @@ import React from 'react'
 import { Button } from '../ui/button'
 import { FiShoppingCart } from 'react-icons/fi'
 
-const CartWithoutLogin = ({ setIsLoginOpen, loading }) => {
-
+const CartWithoutLogin = ({ openLoginModal , loading }) => {
 
     return (
         <div className={`flex flex-col justify-center items-center h-[70vh] gap-3`}>
@@ -18,7 +17,7 @@ const CartWithoutLogin = ({ setIsLoginOpen, loading }) => {
                 <Button
                     variant="login2"
                     size="login2"
-                    onClick={() => setIsLoginOpen(true)}
+                    onClick={openLoginModal}
                 >
                     Login
                 </Button>

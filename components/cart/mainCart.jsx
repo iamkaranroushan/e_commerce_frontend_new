@@ -9,6 +9,8 @@ import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import { IoIosArrowUp, IoIosArrowDown } from 'react-icons/io'
 import RouteLoader from "@/components/skeleton/RouteLoader"
 import CartSkeleton from "@/components/skeleton/CartSkeleton"
+import useDeleteCartItem from "@/hooks/useDeleteCartItem";
+import CartItemDeleteModal from "./cartItemDeleteModal";
 
 const CartSummary = ({ formattedTotal, onCheckout }) => (
     <>
@@ -30,7 +32,7 @@ const CartSummary = ({ formattedTotal, onCheckout }) => (
     </>
 )
 
-const MainCart = ({ token, setIsLoginOpen }) => {
+const MainCart = ({ token, openDeleteModal, closeModal }) => {
     const { cartItems, loading, error, refetch } = useCart()
     const pathname = usePathname()
     const searchParams = useSearchParams()
@@ -67,6 +69,24 @@ const MainCart = ({ token, setIsLoginOpen }) => {
         }
     }, [itemTotal])
 
+
+    const { deleteCartItem } = useDeleteCartItem();
+    
+    const handleDeleteTrigger = (id) => {
+        console.log("delete modal open", {id})
+        openDeleteModal("delete-cart-item", {
+            onConfirm: async () => {
+                await deleteCartItem(id);
+                await refetch();
+                closeModal();
+            }
+        });
+        console.log("delete modal close")
+    };  
+
+    
+
+
     if (routeLoading) {
         return (
             <div className="flex flex-col h-[70vh] items-center justify-center">
@@ -87,8 +107,9 @@ const MainCart = ({ token, setIsLoginOpen }) => {
     }
 
     return (
-        <div className="flex flex-col h-[100dvh] lg:h-auto">
+        <div className="flex flex-col h-[100vh] lg:h-auto">
             {/* Scrollable Cart Section */}
+            
             <div className="flex-1 overflow-y-auto px-4 lg:pt-6 pb-36 lg:pb-8 max-w-7xl mx-auto w-full">
                 <div className="grid grid-cols-1 lg:grid-cols-[2fr_1px_1fr] gap-8">
                     {/* Cart Items */}
@@ -96,11 +117,11 @@ const MainCart = ({ token, setIsLoginOpen }) => {
                         <h2 className="text-3xl font-semibold mb-4 hidden lg:block">Shopping Bag</h2>
                         {cartItems.map((product) => (
                             <CartProductCard
-                                key={product.id}
-                                refetchCartItems={refetch}
-                                token={token}
-                                setIsLoginOpen={setIsLoginOpen}
-                                product={product}
+                                    key={product.id}
+                                    refetchCartItems={refetch}
+                                    token={token}
+                                    product={product}
+                                    onDeleteTrigger={handleDeleteTrigger}
                             />
                         ))}
                     </div>
