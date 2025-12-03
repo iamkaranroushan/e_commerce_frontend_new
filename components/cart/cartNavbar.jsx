@@ -9,7 +9,7 @@ import { TbArrowBackUp } from "react-icons/tb";
 
 const CartNavbar = ({ handleBack }) => {
   return (
-    <div className="top-0 z-20 fixed flex w-screen px-3 py-2 border items-center justify-center bg-white ">
+    <div className="top-0  fixed flex w-screen px-3 py-2 border items-center justify-center bg-white ">
       <div className="flex items-center justify-between py-3 w-screen ">
         <div className=" flex items-center rounded-sm ">
           <button onClick={() => handleBack()}>
