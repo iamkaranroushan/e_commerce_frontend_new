@@ -2,7 +2,7 @@
 import ProductNavbar from "@/components/product/productNavbar";
 import UserNavbar from "@/components/user/usernav";
 import Top_navbar from "@/components/custom/top_navbar";
-import {Bottom_navbar} from "@/components/custom/bottom_navbar";
+import { Bottom_navbar } from "@/components/custom/bottom_navbar";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { MoonLoader } from "react-spinners";
@@ -12,14 +12,17 @@ import { PersistGate } from "redux-persist/integration/react";
 import CartNavbar from "@/components/cart/cartNavbar";
 import { Button } from "@/components/ui/button";
 import useCart from "@/hooks/useCart";
-import RouteLoader from "@/components/skeleton/RouteLoader"
-const CartLayout = ({ children }) => {
+import RouteLoader from "@/components/skeleton/RouteLoader";
+import Login from "@/components/custom/login";
+import CartItemDeleteModal from "@/components/cart/cartItemDeleteModal";
+import { useModalStore } from "@/features/store/modalStore";
 
+const CartLayout = ({ children }) => {
   const [routeLoading, setRouteLoading] = useState(false);
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const router = useRouter(); // Using the useRouter hook
-
+  const { modal, modalProps, closeModal } = useModalStore();
   const [loading, setLoading] = useState(false);
 
   const routeChange = (url) => {
@@ -51,29 +54,41 @@ const CartLayout = ({ children }) => {
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
         <div className="flex flex-col items-center min-h-screen">
-          
           <Top_navbar routeChange={routeChange} />
-          
+
           {loading ? (
             <div className="">
-              <RouteLoader/>
+              <RouteLoader />
             </div>
           ) : (
             <>
+              <main className="p-3 w-full">{children}</main>
 
-            <main className="p-3 w-full">
-              {children}
-            </main>
-
-            {/*<div className="block lg:hidden w-full fixed bottom-0 z-20">
+              {/*<div className="block lg:hidden w-full fixed bottom-0 z-20">
                 <Bottom_navbar routeChange={routeChange} />
               </div>*/}
             </>
-          )
-          }
+
+          )}
+
+          {modal && (
+          <div className="fixed inset-0 z-[9999] flex items-center justify-center">
+            <div
+              className="absolute inset-0 bg-black/50"
+              onClick={closeModal}
+            />
+
+            <div className="relative z-10">
+              {modal === "login" && <Login onClose={closeModal} {...modalProps} />}
+            </div>
+            <div className="relative z-10">
+              {modal === "delete-cart-item" && <CartItemDeleteModal onClose={closeModal} isOpen={true} onConfirm={modalProps.onConfirm} />}
+            </div>
+          </div>
+        )}
         </div>
       </PersistGate>
-    </Provider >
+    </Provider>
   );
 };
 
